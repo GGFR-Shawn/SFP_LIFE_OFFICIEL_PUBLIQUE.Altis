@@ -1,0 +1,1014 @@
+// =======================================================================================================================================================================================
+																// By Maxou - www.sfpteam.fr - INTERDICTION DE RECOPIER !! //
+																  // Poursuite pénal possible ! Voir amar.arma3.fr //
+// =======================================================================================================================================================================================
+
+disableChannels[]={0,1,2,3,4,6};
+loadScreen = "textures\logodebutcarte.paa";
+
+onLoadMissionTime = 1;
+onLoadIntroTime = 1;
+
+joinUnassigned = 1;
+
+OnLoadName = "Altis Life SFP (Stable 006)";
+OnLoadMission = "Altis Life SFP - (By Maxou - www.sfpteam.fr)";// Ne pas changer !!!
+
+#include "dialogues\common_editeur.hpp"
+#include "dialogues\dialogbase.hpp"
+#include "dialogues\dialogmenus.hpp"
+#include "divers\licence_gang_et_territoire_gang\licence_gang\menugang.hpp"
+#include "dialogues\achat_licenses\dialoglicense.hpp"
+#include "divers\farming\transformation\cocaine_en_poudre\dialog_license_cocaine.hpp"
+#include "menu\dialogtransformationdrogue.hpp"
+#include "divers\hud\admin\LxOPS\lxOPS_dlg.hpp"
+#include "divers\hud\admin\nmd\displays\common.hpp"
+#include "divers\hud\admin\nmd\displays\admin\display.hpp"
+#include "divers\hud\admin\nmd\displays\intel\display.hpp"
+#include "divers\revive_sfp\dialogue_revive_sfp.h"
+#include "dialogues\listes_divers.hpp"
+#include "dialogues\vehicules.hpp"
+#include "dialogues\prise_de_gang.hpp"
+#include "dialogues\previsualisation_vehicules.hpp"
+#include "dialogues\dialogues_armes_et_equipements.hpp"
+#include "dialogues\previsualisation_armes.hpp"
+#include "dialogues\divers_gang.hpp"
+#include "divers\hud\admin\auto_fps_maxou_sfp\config_dialogue_auto_fps_maxou.hpp"
+#include "dialogues\farming_depose_pose_nouveau.hpp"
+#include "dialogues\tablette_sfp.hpp"
+#include "divers\hud\admin\dialog_admin.hpp"
+
+class RscTitles
+{
+    #include "dialogues\listes_divers_RscTitles.hpp"
+};
+
+class CfgSounds
+{
+	sounds[] = {};
+
+	class Loie_Martial_Gendarmerie
+	{
+		name = "Loie_Martial_Gendarmerie";
+		sound[] = {"\sounds\Loie_Martial_Gendarmerie.ogg", 1, 1.0};
+		titles[] = {};
+	};
+	class loie_martiale_sirene_continu
+	{
+		name = "loie_martiale_sirene_continu";
+		sound[] = {"\sounds\loie_martiale_sirene_continu.ogg", 1, 1.0};
+		titles[] = {};
+	};
+	class son_sirene_loi_martiale
+	{
+		name = "son_sirene_loi_martiale";
+		sound[] = {"\sounds\son_sirene_loi_martiale.ogg", 0.6, 1.0};
+		titles[] = {};
+	};
+	class Detecteur_radar
+	{
+		name = "detecteur_radar";
+		sound[] = {"\sounds\detecteur_radar.ogg", 0.9, 1.0};
+		titles[] = {};
+	};
+	class Intro
+	{
+		name = "Intro";
+		sound[] = {"\sounds\Intro.ogg", db+0, 1.0};
+		titles[] = {};
+	};
+	class Sifflet
+	{
+		name = "Sifflet";
+		sound[] = {"\sounds\Sifflet.ogg", 0.30, 1};
+		titles[] = {};
+	};
+	class Sirenlong
+	{
+		name = "Sirenlong";
+		sound[] = {"\sounds\siren_francaise.ogg", 0.75, 1};
+		titles[] = {};
+	};
+	class SirenlongPompier
+	{
+		name = "SirenlongPompier";
+		sound[] = {"\sounds\siren_francaise_ambulance.ogg", 0.75, 1};
+		titles[] = {};
+	};
+	class SirenlongAmbulance
+	{
+		name = "SirenlongAmbulance";
+		sound[] = {"\sounds\siren_francaise_ambulance.ogg", 0.75, 1};
+		titles[] = {};
+	};
+	class bankalarm
+	{
+		name = "bankalarm";
+		sound[] = {"\sounds\bankalarm.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class alarmbank
+	{
+		name = "alarmbank";
+		sound[] = {"\sounds\alarmbank.ogg", 0.55, 0.6};
+		titles[] = {};
+	}; 
+	class TerroristSong
+	{
+		name = "TerroristSong";
+		sound[] = {"\sounds\TerroristSong.ogg", 0.75, 1};
+		titles[] = {};
+	};
+	class traitrecivil
+	{
+		name = "traitrecivil";
+		sound[] = {"\sounds\traitrecivil.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class voiture_ouverture
+	{
+		name = "voiture_ouverture";
+		sound[] = {"\sounds\voiture_ouverture.ogg", 0.15, 1};
+		titles[] = {};
+	};
+	class voiture_fermeture
+	{
+		name = "voiture_fermeture";
+		sound[] = {"\sounds\voiture_fermeture.ogg", 0.15, 1};
+		titles[] = {};
+	};
+	class alarmevoiture
+	{
+		name = "alarmevoiture";
+		sound[] = {"\sounds\alarmevoiture.ogg", 0.65, 1};
+		titles[] = {};
+	};
+	class radar_de_recul_bip
+	{
+		name = "radar_de_recul_bip";
+		sound[] = {"\sounds\son_re_recul.ogg", 0.16, 1};
+		titles[] = {};
+	};
+	class joueur_douleur_flash_ball
+	{
+		name = "joueur_douleur_flash_ball";
+		sound[] = {"\sounds\joueur_douleur_flash_ball.ogg", 0.5, 1};
+		titles[] = {};
+	};
+	class coupdemarteau
+	{
+		name = "coupdemarteau";
+		sound[] = {"\sounds\coupdemarteau.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class explosiondupneu
+	{
+		name = "explosiondupneu";
+		sound[] = {"\sounds\explosiondupneu.ogg", 1, 1};
+		titles[] = {};
+	};
+	class annonce_sfp_team_une
+	{
+		name = "annonce_sfp_team_une";
+		sound[] = {"\sounds\consulter_notre_site.ogg", 0.50, 1};
+		titles[] = {};
+	};
+	class annonce_sfp_team_trois
+	{
+		name = "annonce_sfp_team_trois";
+		sound[] = {"\sounds\chewing_um_en_ville.ogg", 0.50, 1};
+		titles[] = {};
+	};
+	class Ouille
+	{
+		name = "Ouille";
+		sound[] = {"\sounds\ouille.ogg", 0.75, 1};
+		titles[] = {};
+	};
+	class Jeronfle
+	{
+		name = "Jeronfle";
+		sound[] = {"\sounds\Jeronfle.ogg", 0.75, 1};
+		titles[] = {};
+	};
+	class Jefaispipibysfpmaxou
+	{
+		name = "Jefaispipibysfpmaxou";
+		sound[] = {"\sounds\Jefaispipibysfpmaxou.ogg", 0.75, 1};
+		titles[] = {};
+	}; 
+	class JouvreUneCanette
+	{
+		name = "JouvreUneCanette";
+		sound[] = {"\sounds\jouvreunecanette.ogg", 0.75, 1};
+		titles[] = {};
+	}; 
+	class JeMange
+	{
+		name = "JeMange";
+		sound[] = {"\sounds\manger.ogg", 0.75, 1};
+		titles[] = {};
+	}; 
+	class JeBois
+	{
+		name = "JeBois";
+		sound[] = {"\sounds\jebois.ogg", 0.75, 1};
+		titles[] = {};
+	}; 
+	class boitedenuitun
+	{
+		name = "boitedenuitun";
+		sound[] = {"\sounds\boitedenuitun.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class TaserSound
+	{
+		name = "TaserSound";
+		sound[] = {"\sounds\tazer.ogg", 0.55, 1};
+		titles[] = {};
+	};
+	class aboie_quand_cours
+	{
+		name = "aboie_quand_cours";
+		sound[] = {"\sounds\aboie_quand_cours.ogg", 0.42, 1};
+		titles[] = {};
+	};
+	class aboie_quand_attaque
+	{
+		name = "aboie_quand_attaque";
+		sound[] = {"\sounds\aboie_quand_attaque.ogg", 0.10, 1};
+		titles[] = {};
+	};
+	class extincteur_allumage
+	{
+		name = "extincteur_allumage";
+		sound[] = {"\sounds\extincteur_allumage.ogg", 0.8, 1};
+		titles[] = {};
+	};
+	class extincteur_continu
+	{
+		name = "extincteur_continu";
+		sound[] = {"\sounds\extincteur_continu.ogg", 0.8, 1};
+		titles[] = {};
+	};
+	class voiture_brule
+	{
+		name = "voiture_brule";
+		sound[] = {"\sounds\voiture_brule.ogg", 0.45, 1};
+		titles[] = {};
+	};
+	class son_sms_sfp
+	{
+		name = "son_sms_sfp";
+		sound[] = {"\sounds\son_sms_sfp.ogg", 0.90, 1};
+		titles[] = {};
+	};
+	class son_mouvement_argent_sfp
+	{
+		name = "son_mouvement_argent_sfp";
+		sound[] = {"\sounds\bruit_argent.ogg", 0.70, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_cri_femme_sfp
+	{
+		name = "son_nature_maison_cri_femme_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\cri_femme_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_rot_sfp
+	{
+		name = "son_nature_maison_rot_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\rot_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_pleure_femme_sfp
+	{
+		name = "son_nature_maison_pleure_femme_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\pleure_femme_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_crie_de_joie_bebe_sfp
+	{
+		name = "son_nature_maison_crie_de_joie_bebe_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\crie_de_joie_bebe_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_crachat_sfp
+	{
+		name = "son_nature_maison_crachat_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\crachat_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_baillement_sfp
+	{
+		name = "son_nature_maison_baillement_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\baillement_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_toux_sfp
+	{
+		name = "son_nature_maison_toux_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\toux_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_pet_sfp
+	{
+		name = "son_nature_maison_pet_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\pet_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_coup_de_marteau_bois
+	{
+		name = "son_nature_maison_coup_de_marteau_bois";
+		sound[] = {"\divers\son_nature_sfp\maison\coup_de_marteau_bois.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_scooter_pars_sfp
+	{
+		name = "son_nature_maison_scooter_pars_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\scooter_pars_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_mobylette_passe_sfp
+	{
+		name = "son_nature_maison_mobylette_passe_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\mobylette_passe_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_moto_ktm_sfp
+	{
+		name = "son_nature_maison_moto_ktm_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\moto_ktm_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_bris_de_verre_sfp
+	{
+		name = "son_nature_maison_bris_de_verre_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\bris_de_verre_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_tagueule_sfp
+	{
+		name = "son_nature_tagueule_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\son_nature_tagueule_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_chat_sfp
+	{
+		name = "son_nature_maison_chat_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\chat_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_chien_un_sfp
+	{
+		name = "son_nature_maison_chien_un_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\chien_un_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_chien_deux_sfp
+	{
+		name = "son_nature_maison_chien_deux_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\chien_deux_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_marteau_sfp
+	{
+		name = "son_nature_maison_marteau_sfp_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\marteau_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_maison_vache_sfp
+	{
+		name = "son_nature_maison_vache_sfp";
+		sound[] = {"\divers\son_nature_sfp\maison\vache_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_corbeau_sfp
+	{
+		name = "son_nature_nature_corbeau_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\corbeau_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_faucon_sfp
+	{
+		name = "son_nature_nature_faucon_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\faucon_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_merle_sfp
+	{
+		name = "son_nature_nature_merle_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\merle_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_moineau_sfp
+	{
+		name = "son_nature_nature_moineau_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\moineau_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_pincon_sfp
+	{
+		name = "son_nature_nature_pincon_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\pincon_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_rossignol_sfp
+	{
+		name = "son_nature_nature_rossignol_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\rossignol_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class son_nature_nature_rouge_gorge_sfp
+	{
+		name = "son_nature_nature_rouge_gorge_sfp";
+		sound[] = {"\divers\son_nature_sfp\nature\rouge_gorge_sfp.ogg", 0.40, 1};
+		titles[] = {};
+	};
+	class beeper_pompier_sfp
+	{
+		name = "beeper_pompier_sfp";
+		sound[] = {"\sounds\bipper_pompier_sfp.ogg", 0.30, 1};
+		titles[] = {};
+	};
+	class son_menottage_sfp
+	{
+		name = "sfp_menottage";
+		sound[] = {"\sounds\sfp_menottage.ogg", 0.90, 1};
+		titles[] = {};
+	};
+	class pompier_depart_feux_de_champs
+	{
+		name = "pompier_depart_feux_de_champs";
+		sound[] = {"\sounds\pompier_depart_feux_de_champs.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class pompier_depart_normal
+	{
+		name = "pompier_depart_normal";
+		sound[] = {"\sounds\pompier_depart_normal.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class pompier_depart_sap
+	{
+		name = "pompier_depart_sap";
+		sound[] = {"\sounds\pompier_depart_sap.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class attention_le_serveur_redemarre
+	{
+		name = "attention_le_serveur_redemarre";
+		sound[] = {"\sounds\attention_le_serveur_redemarre.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class son_des_lacrymo_par_sfp_maxou
+	{
+		name = "son_des_lacrymo_par_sfp_maxou";
+		sound[] = {"\sounds\son_des_lacrymo_par_sfp_maxou.ogg", 0.95, 1};
+		titles[] = {};
+	};
+	class toux_lacrymo_sfp
+	{
+		name = "toux_lacrymo_sfp";
+		sound[] = {"\sounds\toux_lacrymo_sfp.ogg", 0.65, 1};
+		titles[] = {};
+	};
+	
+	class feu_artifice_apres_explosion_1
+	{
+		name = "feu_artifice_apres_explosion_1";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_1.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_2
+	{
+		name = "feu_artifice_apres_explosion_2";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_2.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_3
+	{
+		name = "feu_artifice_apres_explosion_3";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_3.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_4
+	{
+		name = "feu_artifice_apres_explosion_4";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_4.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_5
+	{
+		name = "feu_artifice_apres_explosion_5";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_5.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_6
+	{
+		name = "feu_artifice_apres_explosion_6";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_6.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_7
+	{
+		name = "feu_artifice_apres_explosion_7";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_7.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_8
+	{
+		name = "feu_artifice_apres_explosion_8";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_8.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_9
+	{
+		name = "feu_artifice_apres_explosion_9";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_9.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_10
+	{
+		name = "feu_artifice_apres_explosion_10";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_10.ogg", 1, 1};
+		titles[] = {};
+	};
+	class feu_artifice_apres_explosion_11
+	{
+		name = "feu_artifice_apres_explosion_11";
+		sound[] = {"\sounds\feu_d_artifice\apres_explosion_feu_artifice_sfp\feu_artifice_apres_explosion_11.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_1
+	{
+		name = "explosion_feu_artifice_sfp_1";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_1.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_2
+	{
+		name = "explosion_feu_artifice_sfp_2";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_2.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_3
+	{
+		name = "explosion_feu_artifice_sfp_3";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_3.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_4
+	{
+		name = "explosion_feu_artifice_sfp_4";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_4.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_5
+	{
+		name = "explosion_feu_artifice_sfp_5";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_5.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_6
+	{
+		name = "explosion_feu_artifice_sfp_6";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_6.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_7
+	{
+		name = "explosion_feu_artifice_sfp_7";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_7.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_8
+	{
+		name = "explosion_feu_artifice_sfp_8";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_8.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_9
+	{
+		name = "explosion_feu_artifice_sfp_9";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_9.ogg", 1, 1};
+		titles[] = {};
+	};
+	class explosion_feu_artifice_sfp_10
+	{
+		name = "explosion_feu_artifice_sfp_10";
+		sound[] = {"\sounds\feu_d_artifice\explosion_feu_artifice_sfp\explosion_feu_artifice_sfp_10.ogg", 1, 1};
+		titles[] = {};
+	};
+	class lanceur_feu_artifice_sfp_1
+	{
+		name = "lanceur_feu_artifice_sfp_1";
+		sound[] = {"\sounds\feu_d_artifice\lanceur_feu_artifice_sfp\lanceur_feu_artifice_sfp_1.ogg", 1, 1};
+		titles[] = {};
+	};
+	class lanceur_feu_artifice_sfp_2
+	{
+		name = "lanceur_feu_artifice_sfp_2";
+		sound[] = {"\sounds\feu_d_artifice\lanceur_feu_artifice_sfp\lanceur_feu_artifice_sfp_2.ogg", 1, 1};
+		titles[] = {};
+	};
+	class lanceur_feu_artifice_sfp_3
+	{
+		name = "lanceur_feu_artifice_sfp_3";
+		sound[] = {"\sounds\feu_d_artifice\lanceur_feu_artifice_sfp\lanceur_feu_artifice_sfp_3.ogg", 1, 1};
+		titles[] = {};
+	};
+	class lanceur_feu_artifice_sfp_4
+	{
+		name = "lanceur_feu_artifice_sfp_4";
+		sound[] = {"\sounds\feu_d_artifice\lanceur_feu_artifice_sfp\lanceur_feu_artifice_sfp_4.ogg", 1, 1};
+		titles[] = {};
+	};
+	class lanceur_feu_artifice_sfp_5
+	{
+		name = "lanceur_feu_artifice_sfp_5";
+		sound[] = {"\sounds\feu_d_artifice\lanceur_feu_artifice_sfp\lanceur_feu_artifice_sfp_5.ogg", 1, 1};
+		titles[] = {};
+	};
+	class bruit_respawn
+	{
+		name = "bruit_respawn";
+		sound[] = {"\sounds\bruit_respawn.ogg", 0.25, 1};
+		titles[] = {};
+	};
+};
+
+class CfgDebriefing
+{
+	class NotWhitelisted
+	{
+		title = "Mission Terminé";
+		subtitle = "Tu n'es pas autorisé a utiliser ce slot";
+		description = "Tu n'es pas whitelisté sur ce slot !";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Hackeur
+	{
+		title = "Mission Terminé";
+		subtitle = "Kikou Kikou Kikou Kikou !";
+		description = "Hack detecté ... Aurevoir !";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Hackeur_TP
+	{
+		title = "Mission Terminé";
+		subtitle = "Hack TP !";
+		description = "Mon anti hack à détecté que tu t'es TP ! Si soucis, contact moi, Maxou.";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Hackeur_Argent_SFP
+	{
+		title = "Mission Terminé";
+		subtitle = "Hack Argent !";
+		description = "Mon anti hack à détecté un hack argent ! Si soucis, contact moi, Maxou.";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Slot_Reserve
+	{
+		title = "Mission Terminé";
+		subtitle = "Slot injouable !";
+		description = "Ce slot est reservé, contacte Maxou si tu souhaites jouer ici.";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Comportement_anormal_collision_vehicule
+	{
+		title = "Mission Terminé";
+		subtitle = "Comportement suspect !";
+		description = "Nous avons detecté un accident sur une maison avec un véhicule de livraison !";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Banni_du_serveur_end_mission
+	{
+		title = "Mission Terminé";
+		subtitle = "Banni du serveur !";
+		description = "Tu as été banni du serveur ... Contact Maxou si besoin !";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class Kick_du_serveur_end_mission
+	{
+		title = "Mission Terminé";
+		subtitle = "Kick du serveur !";
+		description = "Tu as été kické du serveur ... Calme toi ...";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class anti_car_kill_end_mission
+	{
+		title = "Mission Terminé";
+		subtitle = "Banni du serveur !";
+		description = "Tu as été banni automatique pour carkill, va sur ts.sfpteam.fr ou www.sfpteam.fr pour t'expliquer !";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+	class kick_non_francais
+	{
+		title = "Mission Terminé";
+		subtitle = "Kické du serveur !";
+		description = "Impossible de rejoindre le serveur (jeu en anglais), met donc le jeu en Francais !";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0,0.3,0.6,1};
+	};
+};
+
+class CfgNotifications
+{
+	class Default
+	{
+		title = ""; // Tile displayed as text on black background. Filled by arguments.
+		iconPicture = ""; // Small icon displayed in left part. Colored by "color", filled by arguments.
+		iconText = ""; // Short text displayed over the icon. Colored by "color", filled by arguments.
+		description = ""; // Brief description displayed as structured text. Colored by "color", filled by arguments.
+		color[] = {1,1,1,1}; // Icon and text color
+		duration = 6; // How many seconds will the notification be displayed
+		priority = 0; // Priority; higher number = more important; tasks in queue are selected by priority
+		difficulty[] = {}; // Required difficulty settings. All listed difficulties has to be enabled
+	};
+ 
+	class TaskAssigned
+	{
+		title = "NOUVELLE TACHE";
+		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+		description = "%1";
+		priority = 7;
+	};
+    
+	class ScoreAdded
+	{
+		title = "%1";
+        iconPicture = "%4";
+		iconText = "%2";
+		description = "%3";
+        duration = 10;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Warning
+	{
+		title = "ATTENTION";
+        iconPicture = "textures\icones\warningSign.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Ok_achat
+	{
+		title = "ACCEPTE";
+        iconPicture = "textures\icones\warningSign.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Tresor
+	{
+		title = "Nouveau Trésor";
+        iconPicture = "textures\icones\tresor.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Incendie
+	{
+		title = "Au Feu !!!";
+        iconPicture = "textures\icones\incendie.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Fuite_d_eau
+	{
+		title = "Ca fuit !!!";
+        iconPicture = "textures\icones\fuite_d_eau.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Fuite_produit_inconnu
+	{
+		title = "Toxique !!!";
+        iconPicture = "textures\icones\fuite_toxique.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Patrouille_De_France
+	{
+		title = "Patrouille de france.";
+        iconPicture = "textures\icones\patrouille_de_france.paa";
+		iconText = "";
+		description = "%1";
+        duration = 8;
+		color[] = {1,1,1,1};
+		priority = 7;
+	}
+    class Incarceration
+	{
+		title = "Accident !";
+        iconPicture = "textures\icones\desinscarceration.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class ChasseAuBots
+	{
+		title = "Terroristes !";
+        iconPicture = "textures\icones\chasse_aux_bots.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class Clock
+	{
+		title = "%1";
+        iconPicture = "textures\icones\clock.paa";
+		iconText = "";
+		description = "%2";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class PayCheck
+	{
+		title = "Argent Recu !";
+        iconPicture = "textures\icones\moneyCheckHud.paa";
+		iconText = "";
+		description = "%1";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class Credit_SFP
+	{
+		title = "Mensualité Crédit !";
+        iconPicture = "textures\icones\moneyCheckHud.paa";
+		iconText = "";
+		description = "%1";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class popup_objet_recu_joueur
+	{
+		title = "Inventaire recu !";
+        iconPicture = "textures\icones\icone_inventaire.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class Miseenfourriere
+	{
+		title = "Fourriere !";
+        iconPicture = "textures\icones\moneyCheckHud.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class ToutesLesCollectes
+	{
+		title = "Déchets !";
+        iconPicture = "textures\icones\moneyCheckHud.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class MerciLaSecu
+	{
+		title = "Sécurité Sociale !";
+        iconPicture = "textures\icones\moneyCheckHud.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class Bail
+	{
+		title = "Bail!";
+        iconPicture = "textures\icones\moneyCheckHud.paa";
+		iconText = "";
+		description = "%2";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class Jail
+	{
+		title = "Prison !";
+        iconPicture = "textures\icones\jail.paa";
+		iconText = "";
+		description = "%2";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+	class Restrained
+	{
+		title = "Restrained!";
+        iconPicture = "textures\icones\restrained.paa";
+		iconText = "";
+		description = "%2";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class VehicleRepair
+    {
+		title = "Réparation";
+        iconPicture = "%2";
+		iconText = "";
+		description = "%1";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+    };
+    class DevisSarlDDE
+    {
+		title = "Devis SARL Dépannage";
+        iconPicture = "%2";
+		iconText = "";
+		description = "%1";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+    };
+    class Revive_Demande
+    {
+		title = "URGENCE MEDICAL";
+        iconPicture = "textures\icones\urgence_medical.paa";
+		iconText = "";
+		description = "%1";
+        duration = 3;
+		color[] = {1,1,1,1};
+		priority = 7;
+    };
+    class SMS_Recu_Hors_Ligne
+	{
+		title = "Téléphone Eteint";
+        iconPicture = "textures\icones\icone_sms_recu.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+    class Demande_Depannage_Dir_Vehicule
+	{
+		title = "Demande Depannage";
+        iconPicture = "textures\icones\vehicles\veh-hunt-eng.paa";
+		iconText = "";
+		description = "%1";
+        duration = 6;
+		color[] = {1,1,1,1};
+		priority = 7;
+	};
+};
+
+class CfgFunctions
+{
+	#include "divers\hud\admin\nmd\cfgFunctions.hpp"
+};
+
+
