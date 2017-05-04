@@ -1,0 +1,2 @@
+serverID = "AltisLifeParMaxou";
+publicVariable "serverID";
