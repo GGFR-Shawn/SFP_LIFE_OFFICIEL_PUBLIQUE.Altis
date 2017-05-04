@@ -1,2 +1,0 @@
-serverID = "AltisLifeParMaxou";
-publicVariable "serverID";
